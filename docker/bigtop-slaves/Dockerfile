@@ -35,9 +35,6 @@ RUN git clone https://github.com/apache/bigtop.git /bigtop
 # 切换到 Bigtop 目录
 WORKDIR /bigtop
 
-# 安装 Bigtop 依赖
-RUN ./gradlew toolchain
-
 # 编译 RPM 包
 RUN ./gradlew rpm
 
