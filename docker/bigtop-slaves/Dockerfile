@@ -23,7 +23,6 @@ RUN sed -e "s|^mirrorlist=|#mirrorlist=|g" \
     -e "s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.ustc.edu.cn/centos-vault/7.9.2009|g" \
     -i.bak \
     /etc/yum.repos.d/CentOS-*.repo && \
-    yum -y update && \
     yum -y install git java-1.8.0-openjdk-devel rpm-build
 
 # 设置 JAVA_HOME 环境变量
