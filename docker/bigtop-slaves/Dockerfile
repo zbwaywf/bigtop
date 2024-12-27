@@ -18,7 +18,12 @@ FROM bigtop/puppet:3.3.0-centos-7
 MAINTAINER dev@bigtop.apache.org
 
 COPY bigtop_toolchain /etc/puppet/modules/bigtop_toolchain
-
+RUN sed -e "s|^mirrorlist=|#mirrorlist=|g" \
+    -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://mirrors.ustc.edu.cn/centos-vault/7.9.2009|g" \
+    -e "s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.ustc.edu.cn/centos-vault/7.9.2009|g" \
+    -i.bak \
+    /etc/yum.repos.d/CentOS-*.repo
+    
 RUN if [ -f ~/.bash_profile ]; then . ~/.bash_profile; fi && \
     yum clean all && yum updateinfo && \
     puppet apply -e "include bigtop_toolchain::installer" || if [ $? -ne 2 ]; then exit 1; fi
