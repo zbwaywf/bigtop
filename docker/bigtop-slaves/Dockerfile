@@ -28,6 +28,14 @@ RUN sed -e "s|^mirrorlist=|#mirrorlist=|g" \
 # 设置 JAVA_HOME 环境变量
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk
 
+RUN wget https://archive.apache.org/dist/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz && \
+    tar -zxvf apache-maven-3.8.8-bin.tar.gz -C /opt && \
+    ln -s /opt/apache-maven-3.8.8 /opt/maven
+
+# 设置 Maven 环境变量
+ENV MAVEN_HOME /opt/maven
+ENV PATH $MAVEN_HOME/bin:$PATH
+
 # 克隆 Apache Bigtop 代码
 RUN git clone https://github.com/apache/bigtop.git /bigtop
 
